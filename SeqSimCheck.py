@@ -1,4 +1,5 @@
-import xlsxwriter 
+import xlsxwriter
+import tkinter as tk
 workbook = xlsxwriter.Workbook("Sequence_Checker_Results.xlsx")
 worksheet = workbook.add_worksheet()
 
@@ -8,17 +9,25 @@ staple_set2 = []
 #Store the matches that occurred between different staples here
 matches = []
 
-#input files with sequences to compare
-file1 = input("Input sequence file 1 name here: ")
-file2 = input("Input sequence file 2 name here: ")
+# potential alternative method of importing files to reduce user errors
+
+from tkinter import filedialog
+
+root = tk.Tk()
+root.withdraw()
+
+file1 = filedialog.askopenfilename()
+file2 = filedialog.askopenfilename()
+
+
 base_check_range = input("Input a number to define length of sequence subsections being compared: ")
 #Moves list of staple sequences from txt file to staple_set list
 with open(file1, "r") as staple_intro1:
-	for line in staple_intro1: 
+	for line in staple_intro1:
 		line = line.strip("\n")
 		staple_set1.append(line)
-with open(file2, "r") as staple_intro2: 
-	for line in staple_intro2: 
+with open(file2, "r") as staple_intro2:
+	for line in staple_intro2:
 		line = line.strip("\n")
 		staple_set2.append(line)
 #print(staple_set1)
@@ -30,11 +39,11 @@ tot_seq2 = len(staple_set2)
 #iteration parameters
 iter1 = 0
 iter2 = 0
-num_match = 0 
+num_match = 0
 #comparison code:
-while iter1 < tot_seq1: 
+while iter1 < tot_seq1:
 	staple1 = staple_set1[iter1] #sequence from staple_set1 will be compared to all sequences in staple_set2 before moving on to next sequence in staple_set1
-	while iter2 < tot_seq2: 
+	while iter2 < tot_seq2:
 		staple2 = staple_set2[iter2]
 		#for one staple1-staple2 set
 		for j, _ in enumerate(staple1):
